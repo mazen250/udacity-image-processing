@@ -12,16 +12,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const index_1 = __importDefault(require("../index"));
-const supertest_1 = __importDefault(require("supertest"));
-const request = (0, supertest_1.default)(index_1.default);
-//test the root route
-describe('Test the root path', () => {
-    describe('Test the root path', () => {
-        it('It should return a text that i wrote', () => __awaiter(void 0, void 0, void 0, function* () {
-            const response = yield request.get('/');
-            const res = response.text;
-            expect(res).toBe('Welcome to image processing server, Created by @MazenAlahwani, try to resize any image');
-        }));
+const sharp_1 = __importDefault(require("sharp"));
+const fs_1 = __importDefault(require("fs"));
+const path_1 = __importDefault(require("path"));
+//create function to resize an image which is an input to the function
+const root = path_1.default.join(__dirname);
+const resize = (imagePath, width, height, imageName) => __awaiter(void 0, void 0, void 0, function* () {
+    yield (0, sharp_1.default)(imagePath)
+        .resize({ width, height })
+        .toBuffer()
+        .then((data) => {
+        console.log(data);
+        fs_1.default.writeFileSync(path_1.default.join(root, `../resizedImage/${imageName}-${width}-${height}.JPG`), data);
+    })
+        .catch((err) => {
+        console.log(err);
     });
 });
+exports.default = resize;

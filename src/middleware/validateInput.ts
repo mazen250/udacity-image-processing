@@ -11,12 +11,21 @@ const validateSize = (
 ): void => {
   const width: number = parseInt(req.query.width as string)
   const height: number = parseInt(req.query.height as string)
-  if (width > 0 && height > 0 && typeof width === 'number' && typeof height === 'number') {
-    console.log("valid width and height")
+  if (
+    width > 0 &&
+    height > 0 &&
+    typeof width === 'number' &&
+    typeof height === 'number'
+  ) {
+    console.log('valid width and height')
 
     next()
   } else {
-    res.status(400).send('please enter valid width and height, width and height must be numbers and greater than 0')
+    res
+      .status(400)
+      .send(
+        'please enter valid width and height, width and height must be numbers and greater than 0'
+      )
   }
 }
 
