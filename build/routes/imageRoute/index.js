@@ -32,7 +32,13 @@ router.get('/resize', cach_1.default, (req, res) => __awaiter(void 0, void 0, vo
     //path to resized image
     const resizedImage = path_1.default.join(root, `../../resizedImage/${imageName}-${width}-${height}.JPG`);
     //if the cache middleware did not send the image, we will resize it and send it
-    yield (0, resize_1.default)(clientImage, width, height, imageName);
-    return res.sendFile(resizedImage);
+    const image = yield (0, resize_1.default)(clientImage, width, height, imageName);
+    if (image !== 'err') {
+        //return res.sendFile(resizedImage)
+        return res.status(200).sendFile(resizedImage);
+    }
+    else {
+        return res.status(400).send('image not resized');
+    }
 }));
 exports.default = router;

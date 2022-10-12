@@ -18,22 +18,20 @@ const validateSize = (req, res, next) => {
         next();
     }
     else {
-        res
-            .status(400)
-            .send('please enter valid width and height, width and height must be numbers and greater than 0');
+        res.send('please enter valid width and height, width and height must be numbers and greater than 0');
     }
 };
 exports.validateSize = validateSize;
 //check if image exists in images folder
 const validateName = (req, res, next) => {
     const imageName = req.query.imageName;
-    const clientImage = path_1.default.join(root, `../images/${imageName}.JPG`);
+    const clientImage = path_1.default.join(root, `../images/${req.query.imageName}.JPG`);
     if (fs_1.default.existsSync(clientImage)) {
         console.log('image name existed');
         next();
     }
     else {
-        res.status(400).send('image name does not exist');
+        res.status(400).send('image name ' + imageName + ' does not exist');
     }
 };
 exports.validateName = validateName;

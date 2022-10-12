@@ -9,20 +9,30 @@ const resize = async (
   width: number,
   height: number,
   imageName: string
-) => {
-  await sharp(imagePath)
+): Promise<string | Buffer> => {
+  let imageReturn: string | Buffer = ''
+  imageReturn = await sharp(imagePath)
     .resize({ width, height })
     .toBuffer()
     .then((data) => {
-      console.log(data)
+      // console.log(data)
       fs.writeFileSync(
-        path.join(root, `../resizedImage/${imageName}-${width}-${height}.JPG`),
+        path.join(
+          root,
+          `../../src/resizedImage/${imageName}-${width}-${height}.JPG`
+        ),
         data
       )
+      return data
     })
     .catch((err) => {
       console.log(err)
+      return err
     })
+
+  //console.log("imageReturn:"+imageReturn);
+
+  return imageReturn
 }
 
 export default resize

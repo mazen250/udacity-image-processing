@@ -9,6 +9,14 @@ const app = (0, express_1.default)();
 app.get('/', (req, res) => {
     res.send('Welcome to image processing server, Created by @MazenAlahwani, try to resize any image');
 });
+app.get('/test?name=mazen', (req, res) => {
+    if (req.query.name === 'mazen') {
+        res.status(200).send('welcome mazen');
+    }
+    else {
+        res.status(400).send('welcome guest');
+    }
+});
 app.use('/imageApi', index_1.default);
 //listen to port 3000
 app.listen(3000, () => {

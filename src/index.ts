@@ -8,6 +8,14 @@ app.get('/', (req: express.Request, res: express.Response) => {
   )
 })
 
+app.get('/test?name=mazen', (req: express.Request, res: express.Response) => {
+  if (req.query.name === 'mazen') {
+    res.status(200).send('welcome mazen')
+  } else {
+    res.status(400).send('welcome guest')
+  }
+})
+
 app.use('/imageApi', imageRoute)
 
 //listen to port 3000

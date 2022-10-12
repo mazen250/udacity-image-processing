@@ -21,11 +21,9 @@ const validateSize = (
 
     next()
   } else {
-    res
-      .status(400)
-      .send(
-        'please enter valid width and height, width and height must be numbers and greater than 0'
-      )
+    res.send(
+      'please enter valid width and height, width and height must be numbers and greater than 0'
+    )
   }
 }
 
@@ -37,12 +35,15 @@ const validateName = (
 ): void => {
   const imageName: string = req.query.imageName as string
 
-  const clientImage: string = path.join(root, `../images/${imageName}.JPG`)
+  const clientImage: string = path.join(
+    root,
+    `../images/${req.query.imageName as string}.JPG`
+  )
   if (fs.existsSync(clientImage)) {
     console.log('image name existed')
     next()
   } else {
-    res.status(400).send('image name does not exist')
+    res.status(400).send('image name ' + imageName + ' does not exist')
   }
 }
 

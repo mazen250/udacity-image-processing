@@ -18,15 +18,20 @@ const path_1 = __importDefault(require("path"));
 //create function to resize an image which is an input to the function
 const root = path_1.default.join(__dirname);
 const resize = (imagePath, width, height, imageName) => __awaiter(void 0, void 0, void 0, function* () {
-    yield (0, sharp_1.default)(imagePath)
+    let imageReturn = '';
+    imageReturn = yield (0, sharp_1.default)(imagePath)
         .resize({ width, height })
         .toBuffer()
         .then((data) => {
-        console.log(data);
-        fs_1.default.writeFileSync(path_1.default.join(root, `../resizedImage/${imageName}-${width}-${height}.JPG`), data);
+        // console.log(data)
+        fs_1.default.writeFileSync(path_1.default.join(root, `../../src/resizedImage/${imageName}-${width}-${height}.JPG`), data);
+        return data;
     })
         .catch((err) => {
         console.log(err);
+        return err;
     });
+    //console.log("imageReturn:"+imageReturn);
+    return imageReturn;
 });
 exports.default = resize;

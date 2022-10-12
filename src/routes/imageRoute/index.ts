@@ -28,8 +28,19 @@ router.get(
     )
 
     //if the cache middleware did not send the image, we will resize it and send it
-    await resize(clientImage, width, height, imageName)
-    return res.sendFile(resizedImage)
+
+    const image: string | Buffer = await resize(
+      clientImage,
+      width,
+      height,
+      imageName
+    )
+    if (image !== 'err') {
+      //return res.sendFile(resizedImage)
+      return res.status(200).sendFile(resizedImage)
+    } else {
+      return res.status(400).send('image not resized')
+    }
   }
 )
 
