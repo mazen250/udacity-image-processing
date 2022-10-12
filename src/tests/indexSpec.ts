@@ -51,7 +51,7 @@ describe('Test cache and resize', () => {
   describe('Test the resize function', () => {
     it('It should return a buffer', async () => {
       const image = await resize(
-        path.join(root, '../../src/images/mazen.JPG'),
+        path.join(root, '../../src/images/coffee.JPG'),
         500,
         500,
         'testing'

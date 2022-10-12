@@ -50,7 +50,7 @@ describe('Test the resize route with not valid image name and not valid width an
 describe('Test cache and resize', () => {
     describe('Test the resize function', () => {
         it('It should return a buffer', () => __awaiter(void 0, void 0, void 0, function* () {
-            const image = yield (0, resize_1.default)(path_1.default.join(root, '../../src/images/mazen.JPG'), 500, 500, 'testing');
+            const image = yield (0, resize_1.default)(path_1.default.join(root, '../../src/images/coffee.JPG'), 500, 500, 'testing');
             //console.log("image:"+image);
             expect(image).toBeInstanceOf(Buffer);
         }));
