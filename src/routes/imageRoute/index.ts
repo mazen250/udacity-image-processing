@@ -13,7 +13,7 @@ router.use(validateSize, validateName)
 router.get(
   '/resize',
   cachedRoute,
-  async (req: express.Request, res: express.Response) => {
+  async (req: express.Request, res: express.Response):Promise<(express.Response|void)> => {
     //get the image info from query
     const imageName: string = req.query.imageName as string
     const width: number = parseInt(req.query.width as string)

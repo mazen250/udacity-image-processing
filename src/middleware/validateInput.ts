@@ -9,22 +9,33 @@ const validateSize = (
   res: express.Response,
   next: express.NextFunction
 ): void => {
-  const width: number = parseInt(req.query.width as string)
-  const height: number = parseInt(req.query.height as string)
-  if (
-    width > 0 &&
-    height > 0 &&
-    typeof width === 'number' &&
-    typeof height === 'number'
-  ) {
-    console.log('valid width and height')
-
-    next()
-  } else {
-    res.send(
-      'please enter valid width and height, width and height must be numbers and greater than 0'
-    )
+  const regExp = /[a-zA-Z]/g;
+  const tempwidth: string = req.query.width as string
+  const tempheight: string = req.query.height as string
+  if (regExp.test(tempwidth) || regExp.test(tempheight)) {
+    res.status(400).send('valid input is numbers only')
   }
+  else{
+    const width:number = parseInt(tempwidth as string)
+    const height:number = parseInt(tempheight as string)
+    console.log('width:' + width+ ' height:' + height);
+    if (
+      width > 0 &&
+      height > 0 &&
+      typeof width === 'number' &&
+      typeof height === 'number'
+    ) {
+      console.log('valid width and height')
+  
+      next()
+    } else {
+      res.send(
+        'please enter valid width and height, width and height must be numbers and greater than 0'
+      )
+    }
+  }
+
+  
 }
 
 //check if image exists in images folder
@@ -43,7 +54,7 @@ const validateName = (
     console.log('image name existed')
     next()
   } else {
-    res.status(400).send('image name ' + imageName + ' does not exist')
+    res.status(400).send('image name ' + imageName + ' does not exist , the valid imageName is gym , coffee and mazen')
   }
 }
 
