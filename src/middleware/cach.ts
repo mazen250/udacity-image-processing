@@ -22,7 +22,7 @@ const cachedRoute = async (
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
-) => {
+):  Promise<(express.Response | void)> => {
   const width: number = parseInt(req.query.width as string)
   const height: number = parseInt(req.query.height as string)
   const imageName: string = req.query.imageName as string
