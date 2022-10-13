@@ -10,10 +10,11 @@ const validateSize = (
   next: express.NextFunction
 ): void => {
   const regExp = /[a-zA-Z]/g;
+  const regex = /\W|_/g
   const tempwidth: string = req.query.width as string
   const tempheight: string = req.query.height as string
-  if (regExp.test(tempwidth) || regExp.test(tempheight)) {
-    res.status(400).send('valid input is numbers only')
+  if (regExp.test(tempwidth) || regExp.test(tempheight )|| regex.test(tempwidth) || regex.test(tempheight)) {
+    res.status(400).send('valid input is numbers only,remove any letters and special charachters')
   }
   else{
     const width:number = parseInt(tempwidth as string)
